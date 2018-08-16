@@ -24,6 +24,10 @@ local function onPlayBtnRelease()
 	return true	-- indicates successful touch
 end
 
+local function onMouseEvent(event)
+  playBtn.fill.effect.contrast = 10
+end
+
 function scene:create( event )
 	local sceneGroup = self.view
 
@@ -72,6 +76,7 @@ function scene:show( event )
 		-- Called when the scene is still off screen and is about to move on screen
 	elseif phase == "did" then
     playBtn:addEventListener("tap", onPlayBtnRelease)
+    playBtn:addEventListener("mouse", onMouseEvent)
 	-- Called when the scene is now on screen
 		-- 
 		-- INSERT code here to make the scene come alive
@@ -102,10 +107,7 @@ function scene:destroy( event )
 	-- INSERT code here to cleanup the scene
 	-- e.g. remove display objects, remove touch listeners, save state, etc.
 	
-	if playBtn then
-		playBtn:removeSelf()	-- widgets must be manually removed
-		playBtn = nil
-	end
+	
 end
 
 ---------------------------------------------------------------------------------
