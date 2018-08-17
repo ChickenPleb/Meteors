@@ -34,14 +34,14 @@ function scene:create( event )
 	-- the physical screen will likely be a different shape than our defined content area
 	-- since we are going to position the background from it's top, left corner, draw the
 	-- background at the real top, left corner.
-	local background = display.newImageRect( "crate.png", display.actualContentWidth, display.actualContentHeight )
+	local background = display.newImageRect( "crate.jpg", display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x = 0 + display.screenOriginX 
 	background.y = 0 + display.screenOriginY
 	
 	-- make a crate (off-screen), position it, and rotate slightly
-	local crate = display.newImageRect( "crate.png", 90, 90 )
+	local crate = display.newImageRect( "crate.jpg", 90, 90 )
 	crate.x, crate.y = 160, -100
 	crate.rotation = 15
 	
@@ -49,20 +49,35 @@ function scene:create( event )
 	physics.addBody( crate, { density=1.0, friction=0.3, bounce=0.3 } )
 	
 	-- create a grass object and add physics (with custom shape)
-	local bricks = display.newImageRect( "bricks.jpg", screenW, 82 )
+	local bricks = display.newImageRect( "bluec.jpg", 1050,250) --, screenW, 82 )
 	bricks.anchorX = 0
 	bricks.anchorY = 1
 	--  draw the grass at the very bottom of the screen
 	bricks.x, bricks.y = display.screenOriginX, display.actualContentHeight + display.screenOriginY
 	
 	-- define a shape that's slightly shorter than image bounds (set draw mode to "hybrid" or "debug" to see)
-	local bricksShape = { -halfW,-34, halfW,-34, halfW,34, -halfW,34 }
-	physics.addBody( bricks, "static", { friction=0.3, shape=bricksShape } )
+	--local bricksShape = { -halfW,-34, halfW,-34, halfW,34, -halfW,34 }
+	physics.addBody( bricks, "static", { friction=0.3} )
+  
+  local company = display.newText ( "Infiny",display.contentCenterX,400,  "motel_king.ttf", 80)
+	company:setFillColor(1,1,1)
+  company.alpha=0
+  transition.to(company, {alpha=1, time=2000})
+  
+  local ball = display.newImageRect( "8ball.png", 250,250)
+  ball.x = 500
+	ball.y = 225
+  ball:rotate(-45)
+  ball.alpha=0
+  transition.to (ball, {rotation=55, time=2000, alpha=1})
+  --ball:rotate(45)
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert( bricks)
 	sceneGroup:insert( crate )
+  sceneGroup:insert( company )
+  sceneGroup:insert( ball )
 end
 
 

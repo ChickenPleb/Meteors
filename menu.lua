@@ -66,6 +66,7 @@ function scene:create( event )
 	sceneGroup:insert( background )
   sceneGroup:insert(gameTitle)
 	sceneGroup:insert( playBtn )
+  
 end
 
 function scene:show( event )
