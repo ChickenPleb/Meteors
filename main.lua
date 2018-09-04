@@ -12,3 +12,4 @@ local composer = require "composer"
 
 -- load menu screen
 composer.gotoScene( "menu" )
+--local backgroundMusic = audio.loadStream( "backgroundMusic.wav" )
