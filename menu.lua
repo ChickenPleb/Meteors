@@ -14,12 +14,27 @@ local widget = require "widget"
 
 -- forward declarations and other locals
 local playBtn
+local player1
+local button2
+
+local function onKeyEvent( event )
+  if (event.keyName == "button10") then
+    composer.gotoScene( "game", "fade", 500 )
+  end
+  if (event.keyName == "button2") then
+    player1.alpha=1
+    button2.alpha=0
+    
+  end
+  
+end
+
 
 -- 'onRelease' event listener for playBtn
 local function onPlayBtnRelease()
 	
 	-- go to level1.lua scene
-	composer.gotoScene( "level1", "fade", 500 )
+	composer.gotoScene( "game", "fade", 500 )
 	
 	return true	-- indicates successful touch
 end
@@ -37,7 +52,7 @@ function scene:create( event )
 	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
 	-- display a background image
-	local background = display.newImageRect( "start_back.jpg", display.actualContentWidth, display.actualContentHeight )
+	local background = display.newImageRect( "crate.jpg", display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x = 0 + display.screenOriginX 
@@ -45,23 +60,31 @@ function scene:create( event )
 	
 	-- create/position logo/title image on upper-half of the screen
   
-  local gameTitle = display.newText ( "Meteorite",display.contentCenterX,200,  "bangers.ttf", 80)
+  local gameTitle = display.newText ( "Cratez",display.contentCenterX,400,  "bangers.ttf", 100)
 	gameTitle:setFillColor(1,1,1)
   
   
-	
+	button2 = display.newImageRect("bfa.png",50,50)
+  button2.x = 200
+  button2.y = 175
+  button2.alpha=1
+ 
+
 	-- create a widget button (which will loads level1.lua on release)
 	
   
   
-  playBtn = display.newImageRect ("play_button.png", 200,140)
-  playBtn.x = display.contentCenterX
-	playBtn.y = display.contentHeight - 125
+  playBtn = display.newImageRect ("ops.png", 70,85)
+  playBtn.x = display.contentCenterX + 100
+	playBtn.y = display.contentHeight - 160
 	playBtn.fill.effect = "filter.contrast"
  
   playBtn.fill.effect.contrast = 2
 	
-  
+  player1 = display.newImageRect ("player1.png", 140,200)  
+  player1.x=250
+  player1.y=225
+  player1.alpha=0
   -- all display objects must be inserted into group
 	sceneGroup:insert( background )
   sceneGroup:insert(gameTitle)
@@ -78,6 +101,7 @@ function scene:show( event )
 	elseif phase == "did" then
     playBtn:addEventListener("tap", onPlayBtnRelease)
     playBtn:addEventListener("mouse", onMouseEvent)
+    Runtime:addEventListener( "key", onKeyEvent )
 	-- Called when the scene is now on screen
 		-- 
 		-- INSERT code here to make the scene come alive

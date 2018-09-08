@@ -1,4 +1,4 @@
-x-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 --
 -- level1.lua
 --
@@ -71,8 +71,8 @@ function scene:create( event )
   ball.alpha=0
   transition.to (ball, {rotation=55, time=2000, alpha=1})
   --ball:rotate(45)
-
-	-- all display objects must be inserted into group
+  timer.performWithDelay(5000, function () composer.gotoScene( "menu" ) end )
+    -- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert( bricks)
 	sceneGroup:insert( crate )
