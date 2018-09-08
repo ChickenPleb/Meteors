@@ -12,4 +12,3 @@ local composer = require "composer"
 
 -- load menu screen
 composer.gotoScene( "level1" )
---composer.gotoScene ("game")
